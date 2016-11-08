@@ -1,0 +1,19 @@
+﻿quizzer v0.1.0
+title: something
+author: someone
+===
+question: What is C++++?
+type: flashcard
+answer: C#
+===
+question: What is the distance to the sun?
+type: flashcard
+answer: I don't know
+===
+question: Which is the correct answer of 2+2?
+type: multiplechoice
+answer: b
+a: 5
+b: 4
+c: 7
+d: 2

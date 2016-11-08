@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Quizzer
 {
-    public partial class Form1 : Form
+    public partial class EditDeck : Form
     {
-        public Form1()
+        public EditDeck()
         {
             InitializeComponent();
         }
