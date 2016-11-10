@@ -8,24 +8,38 @@ namespace Quizzer
 {
     class CardList
     {
-        List<Card> cards;
-        int next;
+        public List<Card> Cards { get; private set; }
+        int current;
+        bool lastPrev;
 
         public CardList()
         {
-            cards = new List<Card>();
-            next = 0;
+            Cards = new List<Card>();
+            current = 0;
+            lastPrev = false;
         }
 
         public void Add(Card card)
         {
-            cards.Add(card);
+            Cards.Add(card);
         }
 
         public Card GetNext()
         {
-            Card c = cards[next];
-            next++;
+            Card c = Cards[current];
+            if (current < Cards.Count - 1) current++;
+            lastPrev = false;
+            return c;
+        }
+
+        public Card GetPrev()
+        {
+            // If the last "get" was a previous, go back one more index
+            // to place current at the current card which was the previous.
+            if (lastPrev) current--;
+            current--;
+            Card c = GetNext();
+            lastPrev = true;
             return c;
         }
 
@@ -35,9 +49,19 @@ namespace Quizzer
             return GetNext();
         }
 
+        public bool IsStart(Card card)
+        {
+            return (Cards.IndexOf(card) == 0);
+        }
+
+        public bool IsLast(Card card)
+        {
+            return (Cards.IndexOf(card) == Cards.Count-1);
+        }
+
         public void Reset()
         {
-            next = 0;
+            current = 0;
         }
     }
 }

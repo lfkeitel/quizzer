@@ -8,18 +8,39 @@ namespace Quizzer
 {
     class Card
     {
-        string question;
-        string answer;
+        public string Question;
+        public string Answer;
+        public string Type;
+        public string[] Options { get; private set; }
+
+        public Card()
+        {
+            Options = new string[4];
+            Question = "";
+            Answer = "";
+            Type = "";
+        }
 
         public Card(string ques, string ans)
         {
-            this.question = ques;
-            this.answer = ans;
+            Options = new string[4];
+            Question = ques;
+            Answer = ans;
+        }
+
+        public void AddOption(int index, string option)
+        {
+            if (index > Options.Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            Options[index] = option;
         }
 
         public bool IsCorrect(string ans)
         {
-            return ans == this.answer;
+            return ans == this.Answer;
         }
     }
 }

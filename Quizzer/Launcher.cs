@@ -16,5 +16,26 @@ namespace Quizzer
         {
             InitializeComponent();
         }
+
+        private void startQuiz_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.Cancel) return;
+            Quiz quiz;
+
+            try
+            {
+                quiz = QuizFile.LoadFile(openFileDialog1.FileName);
+            }
+            catch (InvalidQuizFile ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+            ReviewForm quizForm = new ReviewForm();
+            quizForm.quiz = quiz;
+            quizForm.Show();
+        }
     }
 }

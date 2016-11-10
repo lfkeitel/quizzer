@@ -1,4 +1,4 @@
-﻿quizzer v0.1.0
+﻿quizzer 0.1.0
 title: something
 author: someone
 ===
@@ -17,3 +17,7 @@ a: 5
 b: 4
 c: 7
 d: 2
+===
+question: Is Google evil?
+type: flashcard
+answer: Maybe
