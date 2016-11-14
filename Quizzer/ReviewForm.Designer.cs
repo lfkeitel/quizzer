@@ -36,6 +36,7 @@
             this.rdoOptionB = new System.Windows.Forms.RadioButton();
             this.rdoOptionC = new System.Windows.Forms.RadioButton();
             this.rdoOptionD = new System.Windows.Forms.RadioButton();
+            this.checkBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flashcardBtn
@@ -55,7 +56,7 @@
             // 
             this.nextCardBtn.AutoSize = true;
             this.nextCardBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextCardBtn.Location = new System.Drawing.Point(291, 257);
+            this.nextCardBtn.Location = new System.Drawing.Point(307, 255);
             this.nextCardBtn.Name = "nextCardBtn";
             this.nextCardBtn.Size = new System.Drawing.Size(79, 35);
             this.nextCardBtn.TabIndex = 1;
@@ -66,7 +67,7 @@
             // prevCardBtn
             // 
             this.prevCardBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prevCardBtn.Location = new System.Drawing.Point(149, 258);
+            this.prevCardBtn.Location = new System.Drawing.Point(137, 256);
             this.prevCardBtn.Name = "prevCardBtn";
             this.prevCardBtn.Size = new System.Drawing.Size(79, 32);
             this.prevCardBtn.TabIndex = 2;
@@ -137,11 +138,25 @@
             this.rdoOptionD.UseVisualStyleBackColor = true;
             this.rdoOptionD.Visible = false;
             // 
+            // checkBtn
+            // 
+            this.checkBtn.AutoSize = true;
+            this.checkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBtn.Location = new System.Drawing.Point(222, 255);
+            this.checkBtn.Name = "checkBtn";
+            this.checkBtn.Size = new System.Drawing.Size(79, 35);
+            this.checkBtn.TabIndex = 8;
+            this.checkBtn.Text = "Check";
+            this.checkBtn.UseVisualStyleBackColor = true;
+            this.checkBtn.Visible = false;
+            this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
+            // 
             // ReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 302);
+            this.Controls.Add(this.checkBtn);
             this.Controls.Add(this.rdoOptionD);
             this.Controls.Add(this.rdoOptionC);
             this.Controls.Add(this.rdoOptionB);
@@ -168,5 +183,6 @@
         private System.Windows.Forms.RadioButton rdoOptionB;
         private System.Windows.Forms.RadioButton rdoOptionC;
         private System.Windows.Forms.RadioButton rdoOptionD;
+        private System.Windows.Forms.Button checkBtn;
     }
 }

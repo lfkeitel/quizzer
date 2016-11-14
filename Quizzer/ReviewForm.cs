@@ -35,13 +35,6 @@ namespace Quizzer
 
         private void nextCardBtn_Click(object sender, EventArgs e)
         {
-            if (nextCardBtn.Text == "Check")
-            {
-                MessageBox.Show("Checking...");
-                nextCardBtn.Text = "->";
-                return;
-            }
-
             showNextCard();
         }
 
@@ -55,13 +48,14 @@ namespace Quizzer
             if (quiz.Cards.IsStart(current)) prevCardBtn.Visible = false;
             else prevCardBtn.Visible = true;
 
-            if (quiz.Cards.IsLast(current) && current.Type != "multiplechoice") nextCardBtn.Visible = false;
+            if (quiz.Cards.IsLast(current)) nextCardBtn.Visible = false;
             else nextCardBtn.Visible = true;
         }
 
         private void showMutlipleChoice(bool state)
         {
             lblMultipleChoiceQuestion.Visible = state;
+            checkBtn.Visible = state;
             rdoOptionA.Visible = state;
             rdoOptionB.Visible = state;
             rdoOptionC.Visible = state;
@@ -93,7 +87,6 @@ namespace Quizzer
             {
                 showMutlipleChoice(false);
                 flashcardBtn.Text = current.Question;
-                nextCardBtn.Text = "->";
                 showFlashCardBtn(true);
             }
             else if (current.Type == "multiplechoice")
@@ -104,8 +97,38 @@ namespace Quizzer
                 rdoOptionB.Text = current.Options[1];
                 rdoOptionC.Text = current.Options[2];
                 rdoOptionD.Text = current.Options[3];
-                nextCardBtn.Text = "Check";
                 showMutlipleChoice(true);
+            }
+        }
+
+        private void checkBtn_Click(object sender, EventArgs e)
+        {
+            string selectedAnswer = "";
+
+            if (rdoOptionA.Checked)
+            {
+                selectedAnswer = "a";
+            }
+            else if (rdoOptionB.Checked)
+            {
+                selectedAnswer = "b";
+            }
+            else if (rdoOptionC.Checked)
+            {
+                selectedAnswer = "c";
+            }
+            else if (rdoOptionD.Checked)
+            {
+                selectedAnswer = "d";
+            }
+            
+            if (current.IsCorrect(selectedAnswer))
+            {
+                MessageBox.Show("Correct!");
+            }
+            else
+            {
+                MessageBox.Show("Incorrect");
             }
         }
     }

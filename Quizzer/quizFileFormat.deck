@@ -21,3 +21,11 @@ d: 2
 question: Is Google evil?
 type: flashcard
 answer: Maybe
+===
+question: Which is the correct answer of 2+3?
+type: multiplechoice
+answer: a
+a: 5
+b: 4
+c: 7
+d: 2

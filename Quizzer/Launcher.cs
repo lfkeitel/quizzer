@@ -37,5 +37,31 @@ namespace Quizzer
             quizForm.quiz = quiz;
             quizForm.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Edit existing deck?", "Open", MessageBoxButtons.YesNo);
+            Quiz quiz = null;
+
+            if (result == DialogResult.Yes)
+            {
+                DialogResult r = openFileDialog1.ShowDialog();
+                if (r == DialogResult.Cancel) return;
+
+                try
+                {
+                    quiz = QuizFile.LoadFile(openFileDialog1.FileName);
+                }
+                catch (InvalidQuizFile ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+
+            EditDeck editForm = new EditDeck();
+            editForm.quiz = quiz;
+            editForm.Show();
+        }
     }
 }

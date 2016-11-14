@@ -13,8 +13,8 @@ namespace Quizzer
 
         public static Quiz LoadFile(string pathname)
         {
-            Quiz quiz = new Quiz();
             CardList list = new CardList();
+            Quiz quiz = new Quiz(list);
             StreamReader file = new StreamReader(pathname);
 
             // First check the header
@@ -22,7 +22,6 @@ namespace Quizzer
             loadMetaData(file, quiz);
             loadCards(file, list);
             file.Close();
-            quiz.Cards = list;
             return quiz;
         }
 
@@ -97,6 +96,8 @@ namespace Quizzer
                         card.Question = value;
                         break;
                     case "type":
+                        // Fallback to flashcard if type is blank
+                        if (value == "") value = "flashcard";
                         card.Type = value;
                         break;
                     case "answer":
@@ -120,9 +121,37 @@ namespace Quizzer
             list.Add(card);
         }
 
-        public static void SaveCardList(CardList list)
+        public static void Save(Quiz quiz, string path)
         {
+            // Use a temp file incase anything goes wrong
+            StreamWriter file = new StreamWriter(path+".tmp");
+            // Write header
+            file.WriteLine("quizzer " + Version);
+            // Write Metadata
+            file.WriteLine("title: " + quiz.Title);
+            file.WriteLine("author: " + quiz.Author);
+            // Write card deck
+            foreach (Card c in quiz.Cards.Cards)
+            {
+                // Fallback to flash card if type isn't given
+                if (c.Type == "") c.Type = "flashcard";
+                file.WriteLine("===");
+                file.WriteLine("question: " + c.Question);
+                file.WriteLine("type: " + c.Type);
+                file.WriteLine("answer: " + c.Answer);
+                if (c.Type == "multiplechoice")
+                {
+                    file.WriteLine("a: " + c.Options[0]);
+                    file.WriteLine("b: " + c.Options[1]);
+                    file.WriteLine("c: " + c.Options[2]);
+                    file.WriteLine("d: " + c.Options[3]);
+                }
+            }
+            file.Close();
 
+            // Delete old and replace with new
+            File.Delete(path);
+            File.Move(path + ".tmp", path);
         }
     }
 }

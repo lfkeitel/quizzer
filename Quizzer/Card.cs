@@ -8,7 +8,7 @@ namespace Quizzer
 {
     class Card
     {
-        public string Question;
+        public string Question { get; set; }
         public string Answer;
         public string Type;
         public string[] Options { get; private set; }
