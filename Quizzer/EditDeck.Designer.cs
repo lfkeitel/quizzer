@@ -1,4 +1,4 @@
-﻿namespace Quizzer
+namespace Quizzer
 {
     partial class EditDeck
     {

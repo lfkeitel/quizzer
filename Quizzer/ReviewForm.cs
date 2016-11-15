@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,10 +45,10 @@ namespace Quizzer
 
         private void showButtons()
         {
-            if (quiz.Cards.IsStart(current)) prevCardBtn.Visible = false;
+            if (randomChk.Checked || quiz.Cards.IsStart(current)) prevCardBtn.Visible = false;
             else prevCardBtn.Visible = true;
 
-            if (quiz.Cards.IsLast(current)) nextCardBtn.Visible = false;
+            if (!randomChk.Checked && quiz.Cards.IsLast(current)) nextCardBtn.Visible = false;
             else nextCardBtn.Visible = true;
         }
 
@@ -57,9 +57,13 @@ namespace Quizzer
             lblMultipleChoiceQuestion.Visible = state;
             checkBtn.Visible = state;
             rdoOptionA.Visible = state;
+            rdoOptionA.Checked = false;
             rdoOptionB.Visible = state;
+            rdoOptionB.Checked = false;
             rdoOptionC.Visible = state;
+            rdoOptionC.Checked = false;
             rdoOptionD.Visible = state;
+            rdoOptionD.Checked = false;
         }
 
         private void showFlashCardBtn(bool state)
@@ -69,7 +73,14 @@ namespace Quizzer
 
         private void showNextCard()
         {
-            current = quiz.Cards.GetNext();
+            if (randomChk.Checked)
+            {
+                current = quiz.Cards.GetNextRandom();
+            }
+            else
+            {
+                current = quiz.Cards.GetNext();
+            }
             displayCurrentCard();
             showButtons();
         }

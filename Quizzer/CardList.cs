@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,7 @@ namespace Quizzer
         public List<Card> Cards { get; private set; }
         int current;
         bool lastPrev;
+        Random rand = new Random();
 
         public CardList()
         {
@@ -46,7 +47,8 @@ namespace Quizzer
         // TODO: Return actual random card
         public Card GetNextRandom()
         {
-            return GetNext();
+            int i = rand.Next() % Cards.Count;
+            return Cards[i];
         }
 
         public bool IsStart(Card card)

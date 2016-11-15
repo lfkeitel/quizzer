@@ -1,4 +1,4 @@
-﻿namespace Quizzer
+namespace Quizzer
 {
     partial class ReviewForm
     {
@@ -37,6 +37,7 @@
             this.rdoOptionC = new System.Windows.Forms.RadioButton();
             this.rdoOptionD = new System.Windows.Forms.RadioButton();
             this.checkBtn = new System.Windows.Forms.Button();
+            this.randomChk = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // flashcardBtn
@@ -151,11 +152,22 @@
             this.checkBtn.Visible = false;
             this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
             // 
+            // randomChk
+            // 
+            this.randomChk.AutoSize = true;
+            this.randomChk.Location = new System.Drawing.Point(12, 268);
+            this.randomChk.Name = "randomChk";
+            this.randomChk.Size = new System.Drawing.Size(66, 17);
+            this.randomChk.TabIndex = 9;
+            this.randomChk.Text = "Random";
+            this.randomChk.UseVisualStyleBackColor = true;
+            // 
             // ReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(512, 302);
+            this.Controls.Add(this.randomChk);
             this.Controls.Add(this.checkBtn);
             this.Controls.Add(this.rdoOptionD);
             this.Controls.Add(this.rdoOptionC);
@@ -184,5 +196,6 @@
         private System.Windows.Forms.RadioButton rdoOptionC;
         private System.Windows.Forms.RadioButton rdoOptionD;
         private System.Windows.Forms.Button checkBtn;
+        private System.Windows.Forms.CheckBox randomChk;
     }
 }

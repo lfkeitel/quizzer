@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +44,8 @@ namespace Quizzer
             while ((line = file.ReadLine()) != null)
             {
                 // === signifies the end of the metadata
-                if (line == "===") break;
+                // Comments begin with #
+                if (line == "===" || line[0] == '#') break;
 
                 string property = "";
                 string value = "";
@@ -73,6 +74,9 @@ namespace Quizzer
             Card card = new Card();
             while ((line = file.ReadLine()) != null)
             {
+                // Comments begin with #
+                if (line[0] == '#') continue;
+
                 // === signifies the end of each question
                 if (line == "===")
                 {
