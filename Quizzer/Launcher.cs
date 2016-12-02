@@ -1,11 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Quizzer
@@ -15,52 +9,70 @@ namespace Quizzer
         public Launcher()
         {
             InitializeComponent();
+
+            List<Quiz> quizzes = QuizLoaderDB.GetQuizList();
+
+            quizListBox.DisplayMember = "Title";
+            foreach(Quiz quiz in quizzes)
+            {
+                quizListBox.Items.Add(quiz);
+            }
         }
 
         private void startQuiz_Click(object sender, EventArgs e)
         {
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.Cancel) return;
-            Quiz quiz;
-
-            try
+            Quiz q = loadQuiz();
+            if (q == null)
             {
-                quiz = QuizFile.LoadFile(openFileDialog1.FileName);
-            }
-            catch (InvalidQuizFile ex)
-            {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Please select a deck");
                 return;
             }
 
             ReviewForm quizForm = new ReviewForm();
-            quizForm.quiz = quiz;
+            quizForm.quiz = q;
             quizForm.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void editQuiz_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Edit existing deck?", "Open", MessageBoxButtons.YesNo);
-            Quiz quiz = null;
-
-            if (result == DialogResult.Yes)
+            Quiz q = loadQuiz();
+            if (q == null)
             {
-                DialogResult r = openFileDialog1.ShowDialog();
-                if (r == DialogResult.Cancel) return;
-
-                try
-                {
-                    quiz = QuizFile.LoadFile(openFileDialog1.FileName);
-                }
-                catch (InvalidQuizFile ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
+                MessageBox.Show("Please select a deck");
+                return;
             }
 
             EditDeck editForm = new EditDeck();
-            editForm.quiz = quiz;
+            editForm.quiz = q;
+            editForm.Show();
+        }
+
+        private Quiz loadQuiz()
+        {
+            Quiz quiz = (Quiz)quizListBox.SelectedItem;
+            if (quiz == null) return null;
+
+            try
+            {
+                quiz = (new QuizLoaderDB()).LoadQuiz(quiz);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            return quiz;
+        }
+
+        private void quizListBox_DoubleClick(object sender, EventArgs e)
+        {
+            startQuiz_Click(sender, e);
+        }
+
+        private void createDeck_Click(object sender, EventArgs e)
+        {
+            EditDeck editForm = new EditDeck();
+            editForm.quiz = null;
             editForm.Show();
         }
     }

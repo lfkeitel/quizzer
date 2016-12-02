@@ -1,11 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Quizzer
@@ -30,6 +23,8 @@ namespace Quizzer
                 quiz = new Quiz();
             }
             current = quiz.Cards.Cards.Count - 1;
+            txtQuizName.Text = quiz.Title;
+            txtAuthor.Text = quiz.Author;
             updateQuestionList();
             setQuestionListToCurrent();
             showNavButtons();
@@ -65,8 +60,8 @@ namespace Quizzer
         private void loadCurrentQuestion()
         {
             if (current < 0 || current > quiz.Cards.Cards.Count - 1) return;
-            questionTxt.Text = quiz.Cards.Cards[current].Question;
-            answerTxt.Text = quiz.Cards.Cards[current].Answer;
+            txtQuestion.Text = quiz.Cards.Cards[current].Question;
+            txtAnswer.Text = quiz.Cards.Cards[current].Answer;
         }
 
         private void setDeckChanged(bool state)
@@ -83,18 +78,24 @@ namespace Quizzer
 
         private void addCardBtn_Click(object sender, EventArgs e)
         {
+            if (txtQuestion.Text == "" || txtAnswer.Text == "")
+            {
+                MessageBox.Show("Question and Answer cannot be empty");
+                return;
+            }
+
             saveOldBtn.Visible = false;
             if (editMode == "new")
             {
-                Card c = new Card(questionTxt.Text, answerTxt.Text);
+                Card c = new Card(txtQuestion.Text, txtAnswer.Text);
                 quiz.Cards.Add(c);
                 setDeckChanged(true);
             }
             current = quiz.Cards.Cards.Count - 1;
             updateQuestionList();
             setQuestionListToCurrent();
-            questionTxt.Text = "";
-            answerTxt.Text = "";
+            txtQuestion.Text = "";
+            txtAnswer.Text = "";
             editMode = "new";
             addCardBtn.Text = "Add";
         }
@@ -102,8 +103,8 @@ namespace Quizzer
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             quiz = new Quiz();
-            questionTxt.Text = "";
-            answerTxt.Text = "";
+            txtQuestion.Text = "";
+            txtAnswer.Text = "";
             setDeckChanged(false);
             updateQuestionList();
             showNavButtons();
@@ -117,18 +118,15 @@ namespace Quizzer
 
         private void saveDeck()
         {
-            DialogResult d = saveFileDialog1.ShowDialog();
-            if (d == DialogResult.Cancel) return;
-
             try
             {
-                quiz.Save(saveFileDialog1.FileName);
+                quiz.Save();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+}
 
         private void questionListCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -143,8 +141,14 @@ namespace Quizzer
 
         private void saveOldBtn_Click(object sender, EventArgs e)
         {
-            quiz.Cards.Cards[current].Question = questionTxt.Text;
-            quiz.Cards.Cards[current].Answer = answerTxt.Text;
+            if (txtQuestion.Text == "" || txtAnswer.Text == "")
+            {
+                MessageBox.Show("Question and Answer cannot be empty");
+                return;
+            }
+
+            quiz.Cards.Cards[current].Question = txtQuestion.Text;
+            quiz.Cards.Cards[current].Answer = txtAnswer.Text;
             updateQuestionList();
             setQuestionListToCurrent();
             setDeckChanged(true);
@@ -168,38 +172,22 @@ namespace Quizzer
             saveDeck();
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void txtQuizName_TextChanged(object sender, EventArgs e)
         {
-            if (changed)
-            {
-                DialogResult r = MessageBox.Show(
-                "Changes have been made to the deck.\nWould you like to save?",
-                "Save Deck",
-                MessageBoxButtons.YesNo);
+            quiz.Title = txtQuizName.Text;
+        }
 
-                if (r == DialogResult.Yes) saveDeck();
-            }
+        private void txtAuthor_TextChanged(object sender, EventArgs e)
+        {
+            quiz.Author = txtAuthor.Text;
+        }
 
-            DialogResult result = openFileDialog1.ShowDialog();
-            if (result == DialogResult.Cancel) return;
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Are you sure you want to delete this deck?", "Delete Deck", MessageBoxButtons.YesNo);
+            if (r == DialogResult.No) return;
 
-            try
-            {
-                quiz = QuizFile.LoadFile(openFileDialog1.FileName);
-            }
-            catch (InvalidQuizFile ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-
-            questionTxt.Text = "";
-            answerTxt.Text = "";
-            setDeckChanged(false);
-            current = quiz.Cards.Cards.Count - 1;
-            updateQuestionList();
-            setQuestionListToCurrent();
-            showNavButtons();
+            quiz.Delete();
         }
     }
 }

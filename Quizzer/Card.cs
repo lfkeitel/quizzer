@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quizzer
 {
@@ -12,13 +8,15 @@ namespace Quizzer
         public string Answer;
         public string Type;
         public string[] Options { get; private set; }
+        public int ID;
 
         public Card()
         {
             Options = new string[4];
             Question = "";
             Answer = "";
-            Type = "";
+            Type = "flashcard";
+            ID = 0;
         }
 
         public Card(string ques, string ans)
@@ -26,6 +24,8 @@ namespace Quizzer
             Options = new string[4];
             Question = ques;
             Answer = ans;
+            Type = "flashcard";
+            ID = 0;
         }
 
         public void AddOption(int index, string option)
