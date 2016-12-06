@@ -54,7 +54,7 @@ namespace Quizzer
 
             try
             {
-                quiz = (new QuizLoaderDB()).LoadQuiz(quiz);
+                quiz = QuizLoaderDB.LoadQuiz(quiz);
             }
             catch (Exception ex)
             {

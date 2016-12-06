@@ -8,15 +8,10 @@ namespace Quizzer
 {
     class QuizLoaderDB
     {
-        private string dbFile = "quizDatabase.sqlite3";
+        private static string dbFile = "quizDatabase.sqlite3";
         private static SQLiteConnection dbConn;
 
-        public QuizLoaderDB()
-        {
-            openDatabase();
-        }
-
-        public Quiz LoadQuiz(string name)
+        public static Quiz LoadQuiz(string name)
         {
             CardList list = new CardList();
             Quiz quiz = new Quiz(list);
@@ -27,7 +22,7 @@ namespace Quizzer
             return quiz;
         }
 
-        public Quiz LoadQuiz(Quiz quiz)
+        public static Quiz LoadQuiz(Quiz quiz)
         {
             if (quiz.Title == "") return quiz;
             
@@ -38,7 +33,7 @@ namespace Quizzer
             return quiz;
         }
 
-        private void createDatabaseIfNeeded()
+        public static void createDatabaseIfNeeded()
         {
             if (File.Exists(dbFile)) return;
 
@@ -69,7 +64,7 @@ namespace Quizzer
             command.ExecuteNonQuery();
         }
 
-        private void openDatabase()
+        static void openDatabase()
         {
             // Database has never been opened
             if (dbConn != null && dbConn.State != ConnectionState.Closed) return;
@@ -85,7 +80,7 @@ namespace Quizzer
             dbConn.Open();
         }
 
-        void loadMetaData(Quiz quiz)
+        static void loadMetaData(Quiz quiz)
         {
             string sql = "SELECT * FROM \"quiz\" WHERE \"name\" = @title";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -102,7 +97,7 @@ namespace Quizzer
             reader.Close();
         }
 
-        void loadCards(Quiz quiz, CardList list)
+        static void loadCards(Quiz quiz, CardList list)
         {
             string sql = "SELECT * FROM \"question\" WHERE \"quiz\" = @quiz";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -136,7 +131,7 @@ namespace Quizzer
             }
         }
 
-        public void Delete(Quiz quiz)
+        public static void Delete(Quiz quiz)
         {
             string sql = @"DELETE FROM ""quiz"" WHERE ""id"" = @id";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -151,7 +146,7 @@ namespace Quizzer
             }
         }
 
-        public void Save(Quiz quiz)
+        public static void Save(Quiz quiz)
         {
             if (quiz.ID == 0) insertQuiz(quiz);
             else updateQuiz(quiz);
@@ -159,7 +154,7 @@ namespace Quizzer
             saveCards(quiz);
         }
 
-        private void insertQuiz(Quiz quiz)
+        private static void insertQuiz(Quiz quiz)
         {
             string sql = "INSERT INTO \"quiz\" (\"name\", \"author\", \"lastModified\") VALUES (@name, @auth, @lastMod)";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -181,7 +176,7 @@ namespace Quizzer
             quiz.ID = (int)dbConn.LastInsertRowId;
         }
 
-        private void updateQuiz(Quiz quiz)
+        private static void updateQuiz(Quiz quiz)
         {
             string sql = "UPDATE \"quiz\" SET \"name\" = @name, \"author\" = @auth, \"lastModified\" = @lastMod WHERE id = @id";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -204,7 +199,7 @@ namespace Quizzer
             }
         }
 
-        private void saveCards(Quiz quiz)
+        private static void saveCards(Quiz quiz)
         {
             foreach(Card c in quiz.Cards.Cards)
             {
@@ -213,7 +208,7 @@ namespace Quizzer
             }
         }
 
-        private void insertCard(Card c, int quiz)
+        private static void insertCard(Card c, int quiz)
         {
             string sql = @"INSERT INTO ""question"" (""quiz"", ""question"", ""answer"", ""type"", ""options"")
             VALUES (@quiz, @question, @answer, @type, @options)";
@@ -243,7 +238,7 @@ namespace Quizzer
             c.ID = (int)dbConn.LastInsertRowId;
         }
 
-        private void updateCard(Card c)
+        private static void updateCard(Card c)
         {
             string sql = @"UPDATE ""question"" SET ""question"" = @question, ""answer"" = @answer, ""type"" = @type, ""options"" = @options WHERE ""id"" = @id";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
@@ -270,14 +265,14 @@ namespace Quizzer
             }
         }
 
-        private long getUnixTimeStamp(DateTime d)
+        private static long getUnixTimeStamp(DateTime d)
         {
             return (long)(d.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds;
         }
 
         public static List<Quiz> GetQuizList()
         {
-            QuizLoaderDB loader = new QuizLoaderDB();
+            openDatabase();
 
             List<Quiz> quizzes = new List<Quiz>();
 

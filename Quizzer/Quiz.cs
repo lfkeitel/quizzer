@@ -26,12 +26,12 @@ namespace Quizzer
 
         public void Save()
         {
-            (new QuizLoaderDB()).Save(this);
+            QuizLoaderDB.Save(this);
         }
 
         public void Delete()
         {
-            (new QuizLoaderDB()).Delete(this);
+            QuizLoaderDB.Delete(this);
         }
     }
 }
