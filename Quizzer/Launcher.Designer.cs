@@ -31,11 +31,19 @@ namespace Quizzer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.quizListBox = new System.Windows.Forms.ListBox();
             this.createDeck = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newQuizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportQuizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importQuizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -59,12 +67,6 @@ namespace Quizzer
             this.button2.Text = "Edit Deck";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.editQuiz_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Card Decks|*.deck";
-            this.openFileDialog1.Title = "Open a card deck";
             // 
             // pictureBox1
             // 
@@ -97,6 +99,63 @@ namespace Quizzer
             this.createDeck.UseVisualStyleBackColor = true;
             this.createDeck.Click += new System.EventHandler(this.createDeck_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(752, 24);
+            this.menuStrip1.TabIndex = 5;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newQuizToolStripMenuItem,
+            this.exportQuizToolStripMenuItem,
+            this.importQuizToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // newQuizToolStripMenuItem
+            // 
+            this.newQuizToolStripMenuItem.Name = "newQuizToolStripMenuItem";
+            this.newQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newQuizToolStripMenuItem.Text = "&New Quiz";
+            this.newQuizToolStripMenuItem.Click += new System.EventHandler(this.createDeck_Click);
+            // 
+            // exportQuizToolStripMenuItem
+            // 
+            this.exportQuizToolStripMenuItem.Name = "exportQuizToolStripMenuItem";
+            this.exportQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportQuizToolStripMenuItem.Text = "&Export Quiz";
+            this.exportQuizToolStripMenuItem.Click += new System.EventHandler(this.exportQuizToolStripMenuItem_Click);
+            // 
+            // importQuizToolStripMenuItem
+            // 
+            this.importQuizToolStripMenuItem.Name = "importQuizToolStripMenuItem";
+            this.importQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importQuizToolStripMenuItem.Text = "&Import Quiz";
+            this.importQuizToolStripMenuItem.Click += new System.EventHandler(this.importQuizToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "Card Decks|*.deck";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Card Decks|*.deck";
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,10 +166,15 @@ namespace Quizzer
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Launcher";
             this.Text = "Quizzer";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -118,10 +182,17 @@ namespace Quizzer
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox quizListBox;
         private System.Windows.Forms.Button createDeck;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newQuizToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportQuizToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importQuizToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

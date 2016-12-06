@@ -88,5 +88,46 @@ namespace Quizzer
         {
             loadQuizList();
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void exportQuizToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Quiz q = loadQuiz();
+            if (q == null)
+            {
+                MessageBox.Show("Please select a deck");
+                return;
+            }
+
+            saveFileDialog1.FileName = q.Title;
+            DialogResult r = saveFileDialog1.ShowDialog();
+            if (r == DialogResult.Cancel) return;
+
+            QuizLoaderFile.Save(q, saveFileDialog1.FileName);
+        }
+
+        private void importQuizToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult r = openFileDialog1.ShowDialog();
+            if (r == DialogResult.Cancel) return;
+
+            Quiz q;
+
+            try
+            {
+                q = QuizLoaderFile.LoadQuiz(openFileDialog1.FileName);
+                QuizLoaderDB.Save(q);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            loadQuizList();
+        }
     }
 }
