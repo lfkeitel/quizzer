@@ -9,11 +9,17 @@ namespace Quizzer
         public Launcher()
         {
             InitializeComponent();
+            loadQuizList();
+        }
 
+        private void loadQuizList()
+        {
             List<Quiz> quizzes = QuizLoaderDB.GetQuizList();
 
+            quizListBox.Items.Clear();
+
             quizListBox.DisplayMember = "Title";
-            foreach(Quiz quiz in quizzes)
+            foreach (Quiz quiz in quizzes)
             {
                 quizListBox.Items.Add(quiz);
             }
@@ -44,6 +50,7 @@ namespace Quizzer
 
             EditDeck editForm = new EditDeck();
             editForm.quiz = q;
+            editForm.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditDeck_FormClosing);
             editForm.Show();
         }
 
@@ -73,7 +80,13 @@ namespace Quizzer
         {
             EditDeck editForm = new EditDeck();
             editForm.quiz = null;
+            editForm.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditDeck_FormClosing);
             editForm.Show();
+        }
+
+        public void EditDeck_FormClosing(object sender, EventArgs e)
+        {
+            loadQuizList();
         }
     }
 }

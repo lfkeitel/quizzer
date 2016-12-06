@@ -6,7 +6,7 @@ namespace Quizzer
     {
         public const string Version = "0.1.0";
 
-        public Quiz LoadQuiz(string pathname)
+        public static Quiz LoadQuiz(string pathname)
         {
             CardList list = new CardList();
             Quiz quiz = new Quiz(list);
@@ -20,9 +20,7 @@ namespace Quizzer
             return quiz;
         }
 
-        public Quiz LoadQuiz(Quiz q) { return q; }
-
-        void checkHeader(StreamReader file)
+        static void checkHeader(StreamReader file)
         {
             string line = file.ReadLine();
             if (line == null)
@@ -35,7 +33,7 @@ namespace Quizzer
             }
         }
 
-        void loadMetaData(StreamReader file, Quiz quiz)
+        static void loadMetaData(StreamReader file, Quiz quiz)
         {
             string line;
             while ((line = file.ReadLine()) != null)
@@ -65,7 +63,7 @@ namespace Quizzer
             }
         }
 
-        void loadCards(StreamReader file, CardList list)
+        static void loadCards(StreamReader file, CardList list)
         {
             string line;
             Card card = new Card();
@@ -122,7 +120,7 @@ namespace Quizzer
             list.Add(card);
         }
 
-        public void Save(Quiz quiz, string path)
+        public static void Save(Quiz quiz, string path)
         {
             // Use a temp file incase anything goes wrong
             StreamWriter file = new StreamWriter(path+".tmp");
