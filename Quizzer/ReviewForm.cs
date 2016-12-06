@@ -135,5 +135,10 @@ namespace Quizzer
                 MessageBox.Show("Incorrect");
             }
         }
+
+        private void randomChk_CheckedChanged(object sender, EventArgs e)
+        {
+            nextCardBtn.Visible = randomChk.Checked;
+        }
     }
 }

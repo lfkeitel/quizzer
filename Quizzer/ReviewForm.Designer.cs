@@ -161,6 +161,7 @@ namespace Quizzer
             this.randomChk.TabIndex = 9;
             this.randomChk.Text = "Random";
             this.randomChk.UseVisualStyleBackColor = true;
+            this.randomChk.CheckedChanged += new System.EventHandler(this.randomChk_CheckedChanged);
             // 
             // ReviewForm
             // 

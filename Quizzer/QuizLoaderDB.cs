@@ -276,7 +276,7 @@ namespace Quizzer
 
             List<Quiz> quizzes = new List<Quiz>();
 
-            string sql = "SELECT \"id\", \"name\" FROM \"quiz\"";
+            string sql = "SELECT \"id\", \"name\" FROM \"quiz\" ORDER BY \"name\"";
             SQLiteCommand command = new SQLiteCommand(sql, dbConn);
             SQLiteDataReader reader = command.ExecuteReader();
 

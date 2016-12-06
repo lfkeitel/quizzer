@@ -40,8 +40,8 @@ namespace Quizzer
             lastPrev = true;
             return c;
         }
-
-        // TODO: Return actual random card
+        
+        // TODO: Don't return a card if it's a duplicate.
         public Card GetNextRandom()
         {
             int i = rand.Next() % Cards.Count;

@@ -123,28 +123,28 @@ namespace Quizzer
             // newQuizToolStripMenuItem
             // 
             this.newQuizToolStripMenuItem.Name = "newQuizToolStripMenuItem";
-            this.newQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newQuizToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.newQuizToolStripMenuItem.Text = "&New Quiz";
             this.newQuizToolStripMenuItem.Click += new System.EventHandler(this.createDeck_Click);
             // 
             // exportQuizToolStripMenuItem
             // 
             this.exportQuizToolStripMenuItem.Name = "exportQuizToolStripMenuItem";
-            this.exportQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportQuizToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.exportQuizToolStripMenuItem.Text = "&Export Quiz";
             this.exportQuizToolStripMenuItem.Click += new System.EventHandler(this.exportQuizToolStripMenuItem_Click);
             // 
             // importQuizToolStripMenuItem
             // 
             this.importQuizToolStripMenuItem.Name = "importQuizToolStripMenuItem";
-            this.importQuizToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importQuizToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.importQuizToolStripMenuItem.Text = "&Import Quiz";
             this.importQuizToolStripMenuItem.Click += new System.EventHandler(this.importQuizToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -170,6 +170,7 @@ namespace Quizzer
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Launcher";
             this.Text = "Quizzer";
+            this.Load += new System.EventHandler(this.Launcher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

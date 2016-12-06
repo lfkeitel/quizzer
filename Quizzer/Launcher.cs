@@ -9,7 +9,6 @@ namespace Quizzer
         public Launcher()
         {
             InitializeComponent();
-            loadQuizList();
         }
 
         private void loadQuizList()
@@ -127,6 +126,11 @@ namespace Quizzer
                 MessageBox.Show(ex.Message);
             }
 
+            loadQuizList();
+        }
+
+        private void Launcher_Load(object sender, EventArgs e)
+        {
             loadQuizList();
         }
     }
