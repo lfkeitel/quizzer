@@ -7,14 +7,12 @@ namespace Quizzer
     {
         public List<Card> Cards { get; private set; }
         int current;
-        bool lastPrev;
         Random rand = new Random();
 
         public CardList()
         {
             Cards = new List<Card>();
             current = 0;
-            lastPrev = false;
         }
 
         public void Add(Card card)
@@ -26,18 +24,13 @@ namespace Quizzer
         {
             Card c = Cards[current];
             if (current < Cards.Count - 1) current++;
-            lastPrev = false;
             return c;
         }
 
         public Card GetPrev()
         {
-            // If the last "get" was a previous, go back one more index
-            // to place current at the current card which was the previous.
-            if (lastPrev) current--;
-            current--;
+            current -= 2;
             Card c = GetNext();
-            lastPrev = true;
             return c;
         }
         
