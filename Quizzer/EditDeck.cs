@@ -356,6 +356,7 @@ namespace Quizzer
             if (r == DialogResult.No) return;
 
             quiz.Delete();
+            this.Close();
         }
 
         private void cmbCardType_SelectedIndexChanged(object sender, EventArgs e)
