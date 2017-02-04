@@ -8,6 +8,10 @@ Quizzer is a card review software for learning just about anything. It supports 
 - Multiple quizzes
 - Import/export quizzes to a text file
 
+## Launcher Window
+
+![Launcher](screenshots/main_window.png)
+
 ## Building
 
 Quizzer was written with Visual Studio 2015 targeting .NET Framework 4.5.2 and x64 architecture. The reason for x64 is because the SQLite library bundled with this peoject is x64 only. You can download the x86 version of SQLite to build on x86.
