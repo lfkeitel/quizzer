@@ -6,11 +6,12 @@ Quizzer is a card review software for learning just about anything. It supports 
 
 - Flash card and multiple choice questions
 - Multiple quizzes
-- Import/export quizzes to a text file
+- Import/export quizzes from/to a text file
+- Backed by and SQLite database
 
-## Launcher Window
+## Screenshots
 
-![Launcher](screenshots/main_window.png)
+Screenshots are available in the [screenshot](screenshots) directory.
 
 ## Building
 
